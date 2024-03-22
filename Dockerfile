@@ -6,7 +6,7 @@ RUN git clone https://github.com/Nikke-db/nikke-db-vue.git && \
     ([[ "$TAG" = "latest" ]] || git checkout ${TAG}) && \
     rm -rf .git && \
     sed -i 's/enum globalParams/enum _globalParams/' src/utils/enum/globalParams.ts && \
-    PATCH=" \
+    PATCH="\
         let globalParams: { [key: string]: string } = { ..._globalParams }\n\
         try {\n\
             const request = new XMLHttpRequest()\n\
@@ -21,8 +21,9 @@ RUN git clone https://github.com/Nikke-db/nikke-db-vue.git && \
             }\n\
         } catch (e) {\n\
             console.error(e)\n\
-        }" && \
-    sed -i '/enum messagesEnum/i '"$PATCH" src/utils/enum/globalParams.ts
+        }\
+        " && \
+    sed -i "/enum messagesEnum/i$PATCH" src/utils/enum/globalParams.ts
 
 FROM node:alpine AS build
 
