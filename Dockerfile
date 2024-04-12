@@ -19,9 +19,7 @@ RUN git clone https://github.com/Nikke-db/nikke-db-vue.git && \
                     }\n\
                 }\n\
             }\n\
-        } catch (e) {\n\
-            console.error(e)\n\
-        }\
+        } catch (e) { console.error(e) }\
         " && \
     sed -i "/enum messagesEnum/i$PATCH" src/utils/enum/globalParams.ts
 
